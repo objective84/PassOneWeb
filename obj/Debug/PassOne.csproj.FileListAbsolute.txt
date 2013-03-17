@@ -1,0 +1,4 @@
+C:\Users\Peter's Desktop\Documents\Regis\Github\HelloWorld\PassOne\bin\PassOne.dll
+C:\Users\Peter's Desktop\Documents\Regis\Github\HelloWorld\PassOne\bin\PassOne.pdb
+C:\Users\Peter's Desktop\Documents\Regis\Github\HelloWorld\PassOne\obj\Debug\PassOne.dll
+C:\Users\Peter's Desktop\Documents\Regis\Github\HelloWorld\PassOne\obj\Debug\PassOne.pdb
