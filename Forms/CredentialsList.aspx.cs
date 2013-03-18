@@ -18,5 +18,10 @@ namespace PassOne.Forms
         {
             Server.Transfer("EditValue.aspx");
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Server.Transfer("NewCredentials.aspx");
+        }
     }
 }

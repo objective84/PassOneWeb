@@ -9,6 +9,8 @@
 <body>
     <form id="form1" runat="server">
     <div>
+        <asp:Button ID="Button1" runat="server" onclick="Button1_Click" 
+            style="z-index: 1; left: 408px; top: 505px; position: absolute" Text="New" />
     <asp:Label ID="EmailLabel" runat="server" 
     style="z-index: 1; left: 721px; top: 272px; position: absolute" 
     Text="Email:"></asp:Label>
