@@ -15,7 +15,9 @@
     style="z-index: 1; left: 721px; top: 272px; position: absolute" 
     Text="Email:"></asp:Label>
 <asp:ListBox ID="CredentialsListBox" runat="server" 
-    style="z-index: 1; left: 237px; top: 142px; position: absolute; height: 394px; width: 168px">
+    
+            style="z-index: 1; left: 237px; top: 142px; position: absolute; height: 394px; width: 168px" 
+            onselectedindexchanged="CredentialsListBox_SelectedIndexChanged">
 </asp:ListBox>
     <asp:LinkButton ID="WebsiteEdit" runat="server" Font-Size="XX-Small" 
     style="z-index: 1; left: 522px; top: 169px; position: absolute; " 

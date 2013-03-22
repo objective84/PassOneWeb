@@ -2,3 +2,5 @@ C:\Users\Peter's Desktop\Documents\Regis\Github\HelloWorld\PassOne\bin\PassOne.d
 C:\Users\Peter's Desktop\Documents\Regis\Github\HelloWorld\PassOne\bin\PassOne.pdb
 C:\Users\Peter's Desktop\Documents\Regis\Github\HelloWorld\PassOne\obj\Release\PassOne.dll
 C:\Users\Peter's Desktop\Documents\Regis\Github\HelloWorld\PassOne\obj\Release\PassOne.pdb
+C:\Users\Peter's Desktop\Documents\Regis\Github\HelloWorld\PassOne\obj\Release\PassOne.csprojResolveAssemblyReference.cache
+C:\Users\Peter's Desktop\Documents\Regis\Github\HelloWorld\PassOne\bin\PassOne.dll.config
