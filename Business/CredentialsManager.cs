@@ -83,7 +83,7 @@ namespace PassOne.Business
         {
             try
             {
-                creds.Encrypt(user.Encryption);
+                //creds.Encrypt(user.Encryption);
                 GetService(path, user).DeleteValue(creds);
                 user.CredentialsList.Remove(creds.Id);
             }
