@@ -26,7 +26,7 @@ namespace PassOne.Business
         /// <returns>The requested service</returns>
         protected ISerializeSvc GetService(string path, User user = null)
         {
-            return (ISerializeSvc)Factory.GetService(_service, path, user);
+            return (ISerializeSvc)Factory.GetSoapService(_service, path, user);
         }
         /// <summary>
         /// Method for retreiving a given service from the Service Layer, used only if the requested service is of another type.
@@ -37,7 +37,7 @@ namespace PassOne.Business
         /// <returns></returns>
         protected ISerializeSvc GetService(Services service, string path, User user = null)
         {
-            return (ISerializeSvc)Factory.GetService(service, path, user);
+            return (ISerializeSvc)Factory.GetSoapService(service, path, user);
         }
     }
 }

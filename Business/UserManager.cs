@@ -79,7 +79,7 @@ namespace PassOne.Business
                 try
                 {
                     Credentials credentials =
-                        ((CredentialsSoapSerializer) Factory.GetService(Services.CredentialsSoapSerializer, path, user))
+                        ((CredentialsSoapSerializer)Factory.GetSoapService(Services.CredentialsSoapSerializer, path, user))
                             .RetreiveById((int) user.CredentialsList[key]) as Credentials;
                     dictionary.Add(credentials.Website, credentials.Id);
                 }

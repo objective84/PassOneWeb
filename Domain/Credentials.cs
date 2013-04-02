@@ -7,6 +7,7 @@ namespace PassOne.Domain
     public class Credentials
     {
         public int Id { get; set; }
+        public int UserId { get; set; }
         public string Website { get; set; }
         public string Url { get; set; }
         public string Username { get; set; }
@@ -30,6 +31,18 @@ namespace PassOne.Domain
             Website = title;
         }
 
+        public Credentials(int id, int user, string title, string url, string un, string email, string pw)
+        {
+            CheckForMissingInformation(title, un, pw, email);
+            Id = id;
+            UserId = user;
+            Website = title;
+            Url = url;
+            Username = un;
+            Password = pw;
+            EmailAddress = email;
+        }
+
         public Credentials(string title, string url, string username, string password, string email, int id = 0 )
         {
             CheckForMissingInformation(title, username, password, email);
@@ -41,7 +54,7 @@ namespace PassOne.Domain
             EmailAddress = email;
         }
 
-        public Credentials(int id, byte[] title, byte[] url, byte[] username, byte[] password, byte[] email)
+        public Credentials(int id, int user, byte[] title, byte[] url, byte[] username, byte[] password, byte[] email)
         {
             Id = id;
             Website = string.Empty;

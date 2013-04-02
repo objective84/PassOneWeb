@@ -10,3 +10,5 @@ D:\Regis\Github\HelloWorld\PassOne\bin\PassOne.pdb
 D:\Regis\Github\HelloWorld\PassOne\obj\Release\ResolveAssemblyReference.cache
 D:\Regis\Github\HelloWorld\PassOne\obj\Release\PassOne.dll
 D:\Regis\Github\HelloWorld\PassOne\obj\Release\PassOne.pdb
+C:\Users\Peter's Desktop\Documents\Regis\Github\HelloWorld\PassOne\bin\EntityFramework.dll
+C:\Users\Peter's Desktop\Documents\Regis\Github\HelloWorld\PassOne\bin\EntityFramework.xml

@@ -14,7 +14,7 @@ namespace PassOne.Service
         /// <param name="path">The directory path to where the app can find the PassOne data files</param>
         /// <param name="user">Optional parameter - required for credentials services</param>
         /// <returns></returns>
-        public override IService GetService(Services serviceName, string path,  User user = null)
+        public override IService GetSoapService(Services serviceName, string path,  User user = null)
         {
             Type type;
             var obj = new object();

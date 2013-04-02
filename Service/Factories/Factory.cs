@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
+using System.Web.Configuration;
 using PassOne.Domain;
 using PassOne.Service;
 
@@ -13,13 +14,22 @@ namespace PassOne.Service
     {
         CredentialsSoapSerializer,
         UserSoapSerializer,
-        UserAuthenticator
+        UserAuthenticator,
+        EntityUserImplementation,
+        EntityCredentialsImplementation
     }
 
     public abstract class Factory
     {
 
-        public abstract IService GetService(Services serviceName, string path, User user = null);
+        public virtual IService GetEntityService(Services serviceName)
+        {
+            return null;
+        }
+        public virtual IService GetSoapService(Services serviceName, string path, User user = null)
+        {
+            return null;
+        }
 
         /// <summary>
         /// Method to get the service class location from the app.config file.
@@ -29,8 +39,9 @@ namespace PassOne.Service
         protected string GetImplName(string servicename)
         {
             var settings =
-                ConfigurationManager.AppSettings;
-            return settings.Get(servicename);
+                WebConfigurationManager.AppSettings;
+            var name = settings.Get(servicename);
+            return name;
         }
     }
 }

@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="db58826db71b25484d80eea18f014cef68Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="db58826db71b25484d80eea18f014cef68ModelStoreContainer">
+          <EntitySet Name="Credentials" EntityType="db58826db71b25484d80eea18f014cef68Model.Store.Credentials" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="User" EntityType="db58826db71b25484d80eea18f014cef68Model.Store.User" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Credentials_User" Association="db58826db71b25484d80eea18f014cef68Model.Store.FK_Credentials_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Credentials" EntitySet="Credentials" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Credentials">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="Url" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="Username" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="Email" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="Password" Type="nchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="LastName" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="Username" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="Password" Type="nchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_Credentials_User">
+          <End Role="User" Type="db58826db71b25484d80eea18f014cef68Model.Store.User" Multiplicity="1" />
+          <End Role="Credentials" Type="db58826db71b25484d80eea18f014cef68Model.Store.Credentials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Credentials">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="db58826db71b25484d80eea18f014cef68Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="db58826db71b25484d80eea18f014cef68Entities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Credentials" EntityType="db58826db71b25484d80eea18f014cef68Model.Credential" />
+          <EntitySet Name="Users" EntityType="db58826db71b25484d80eea18f014cef68Model.User" />
+          <AssociationSet Name="FK_Credentials_User" Association="db58826db71b25484d80eea18f014cef68Model.FK_Credentials_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Credentials" EntitySet="Credentials" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Credential">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="Url" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="User" Relationship="db58826db71b25484d80eea18f014cef68Model.FK_Credentials_User" FromRole="Credentials" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="Credentials" Relationship="db58826db71b25484d80eea18f014cef68Model.FK_Credentials_User" FromRole="User" ToRole="Credentials" />
+        </EntityType>
+        <Association Name="FK_Credentials_User">
+          <End Role="User" Type="db58826db71b25484d80eea18f014cef68Model.User" Multiplicity="1" />
+          <End Role="Credentials" Type="db58826db71b25484d80eea18f014cef68Model.Credential" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Credentials">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="db58826db71b25484d80eea18f014cef68ModelStoreContainer" CdmEntityContainer="db58826db71b25484d80eea18f014cef68Entities2">
+          <EntitySetMapping Name="Credentials">
+            <EntityTypeMapping TypeName="db58826db71b25484d80eea18f014cef68Model.Credential">
+              <MappingFragment StoreEntitySet="Credentials">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="db58826db71b25484d80eea18f014cef68Model.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

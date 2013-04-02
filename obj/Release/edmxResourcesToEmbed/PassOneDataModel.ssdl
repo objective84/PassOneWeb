@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="db58826db71b25484d80eea18f014cef68Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="db58826db71b25484d80eea18f014cef68ModelStoreContainer">
+    <EntitySet Name="Credentials" EntityType="db58826db71b25484d80eea18f014cef68Model.Store.Credentials" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="User" EntityType="db58826db71b25484d80eea18f014cef68Model.Store.User" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Credentials_User" Association="db58826db71b25484d80eea18f014cef68Model.Store.FK_Credentials_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Credentials" EntitySet="Credentials" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Credentials">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="Url" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="Username" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="Email" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="Password" Type="nchar" Nullable="false" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="FirstName" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="LastName" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="Username" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="Password" Type="nchar" Nullable="false" MaxLength="10" />
+  </EntityType>
+  <Association Name="FK_Credentials_User">
+    <End Role="User" Type="db58826db71b25484d80eea18f014cef68Model.Store.User" Multiplicity="1" />
+    <End Role="Credentials" Type="db58826db71b25484d80eea18f014cef68Model.Store.Credentials" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Credentials">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
