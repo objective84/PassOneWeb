@@ -24,28 +24,37 @@ namespace PassOneUnitTests.ServiceTests
         [TestMethod]
         public void TestRetrieveById()
         {
-            SqlConnection conn = null;
             try
             {
-                conn = GetConnection();
-                conn.Open();
+
                 using (var db = new PassOneDataContext())
                 {
-                    db.Users.Add(new UserEntity(TestUser.Id, TestUser.FirstName, TestUser.LastName, TestUser.Username,
-                                                TestUser.Password));
+                    db.Database.Connection.Open();
+                    var user = new UserEntity();
+                    user.Id = 2;
+                    user.FirstName = "AnotherFN";
+                    user.LastName = "AnotherLN";
+                    user.Username = "AnotherUN";
+                    user.Password = "MainPass";
+                    var cred = new CredentialsEntity();
+
+                    cred.Id =
+                    cred.UserId = 2;
+                    cred.Title = "CredTitle";
+                    cred.Url = "url";
+                    cred.Username = "CredUN";
+                    cred.Email = "CredEmail";
+                    cred.Password = "CredPass";
+                    cred.User = user;
+                    user.Credentials.Add(cred);
+                    db.UserEntities.Add(user);
                     db.SaveChanges();
                 }
             }
-            finally
+            catch (Exception ex)
             {
-                conn.Close();
+
             }
-          
-
-            var expected = TestUser;
-            var actual = new UserEntity();
-
-
         }
     }
 }

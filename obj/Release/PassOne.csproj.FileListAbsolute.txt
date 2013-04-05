@@ -12,3 +12,10 @@ D:\Regis\Github\HelloWorld\PassOne\obj\Release\PassOne.dll
 D:\Regis\Github\HelloWorld\PassOne\obj\Release\PassOne.pdb
 C:\Users\Peter's Desktop\Documents\Regis\Github\HelloWorld\PassOne\bin\EntityFramework.dll
 C:\Users\Peter's Desktop\Documents\Regis\Github\HelloWorld\PassOne\bin\EntityFramework.xml
+C:\Users\Jason\Desktop\New folder\PassOneWeb\bin\PassOne.dll.config
+C:\Users\Jason\Desktop\New folder\PassOneWeb\bin\PassOne.dll
+C:\Users\Jason\Desktop\New folder\PassOneWeb\bin\PassOne.pdb
+C:\Users\Jason\Desktop\New folder\PassOneWeb\bin\EntityFramework.dll
+C:\Users\Jason\Desktop\New folder\PassOneWeb\bin\EntityFramework.xml
+C:\Users\Jason\Desktop\New folder\PassOneWeb\obj\Release\PassOne.dll
+C:\Users\Jason\Desktop\New folder\PassOneWeb\obj\Release\PassOne.pdb

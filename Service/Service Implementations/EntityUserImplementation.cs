@@ -13,7 +13,7 @@ namespace PassOne.Service
         public User RetreiveById(int id)
         {
             var context = new PassOneDataContext();
-            var query = from u in context.Users select u;
+            var query = from u in context.UserEntities select u;
             var users = query.ToList();
 
             return users.Where(user => user.Id == id).Select(ConvertToDomainObject).FirstOrDefault();
@@ -24,7 +24,7 @@ namespace PassOne.Service
             user.Id = GetNextIdValue();
             using (var db = new PassOneDataContext())
             {
-                db.Users.Add(ConverToEntity(user));
+                db.UserEntities.Add(ConverToEntity(user));
                 db.SaveChanges();
             }
         }
@@ -33,7 +33,7 @@ namespace PassOne.Service
         {
             using (var db = new PassOneDataContext())
             {
-                db.Users.Remove(ConverToEntity(user));
+                db.UserEntities.Remove(ConverToEntity(user));
                 db.SaveChanges();
             }
         }
@@ -41,7 +41,7 @@ namespace PassOne.Service
         public int GetNextIdValue()
         {
             var context = new PassOneDataContext();
-            var query = from u in context.Users select u;
+            var query = from u in context.UserEntities select u;
             var users = query.ToList();
 
             return users.Select(user => user.Id).Concat(new[] {0}).Max();
@@ -54,7 +54,13 @@ namespace PassOne.Service
 
         private UserEntity ConverToEntity(User user)
         {
-            return new UserEntity(user.Id, user.FirstName, user.LastName, user.Username, user.Password);
+            var newUser = new UserEntity();
+            newUser.Id = user.Id;
+            newUser.FirstName = user.FirstName;
+            newUser.LastName = user.LastName;
+            newUser.Username = user.Username;
+            newUser.Password = user.Password;
+            return newUser;
         }
     }
 }

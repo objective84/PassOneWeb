@@ -43,3 +43,13 @@ C:\Users\Peter's Desktop\Documents\Regis\Github\HelloWorld\PassOne\PassOneUnitTe
 C:\Users\Peter's Desktop\Documents\Regis\Github\HelloWorld\PassOne\PassOneUnitTests\obj\Debug\PassOneUnitTests.csprojResolveAssemblyReference.cache
 C:\Users\Peter's Desktop\Documents\Regis\Github\HelloWorld\PassOne\PassOneUnitTests\obj\Debug\PassOneUnitTests.dll
 C:\Users\Peter's Desktop\Documents\Regis\Github\HelloWorld\PassOne\PassOneUnitTests\obj\Debug\PassOneUnitTests.pdb
+C:\Users\Jason\Desktop\New folder\PassOneWeb\PassOneUnitTests\bin\Debug\PassOneUnitTests.dll.config
+C:\Users\Jason\Desktop\New folder\PassOneWeb\PassOneUnitTests\bin\Debug\PassOneUnitTests.dll
+C:\Users\Jason\Desktop\New folder\PassOneWeb\PassOneUnitTests\bin\Debug\PassOneUnitTests.pdb
+C:\Users\Jason\Desktop\New folder\PassOneWeb\PassOneUnitTests\bin\Debug\EntityFramework.dll
+C:\Users\Jason\Desktop\New folder\PassOneWeb\PassOneUnitTests\bin\Debug\PassOne.dll
+C:\Users\Jason\Desktop\New folder\PassOneWeb\PassOneUnitTests\bin\Debug\PassOne.pdb
+C:\Users\Jason\Desktop\New folder\PassOneWeb\PassOneUnitTests\bin\Debug\EntityFramework.xml
+C:\Users\Jason\Desktop\New folder\PassOneWeb\PassOneUnitTests\obj\Debug\PassOneUnitTests.csprojResolveAssemblyReference.cache
+C:\Users\Jason\Desktop\New folder\PassOneWeb\PassOneUnitTests\obj\Debug\PassOneUnitTests.dll
+C:\Users\Jason\Desktop\New folder\PassOneWeb\PassOneUnitTests\obj\Debug\PassOneUnitTests.pdb

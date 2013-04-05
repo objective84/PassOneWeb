@@ -11,7 +11,7 @@ namespace PassOne.Service
         public Credentials RetreiveById(int id)
         {
             var context = new PassOneDataContext();
-            var query = from u in context.Credentials select u;
+            var query = from u in context.CredentialsEntities select u;
             var creds = query.ToList();
 
             return creds.Where(user => user.Id == id).Select(ConvertToDomainObject).FirstOrDefault();
@@ -22,7 +22,7 @@ namespace PassOne.Service
             creds.Id = GetNextIdValue();
             using (var db = new PassOneDataContext())
             {
-                db.Credentials.Add(ConvertToEntity(creds));
+                db.CredentialsEntities.Add(ConvertToEntity(creds));
                 db.SaveChanges();
             }
         }
@@ -31,7 +31,7 @@ namespace PassOne.Service
         {
             using (var db = new PassOneDataContext())
             {
-                db.Credentials.Remove(ConvertToEntity(creds));
+                db.CredentialsEntities.Remove(ConvertToEntity(creds));
                 db.SaveChanges();
             }
         }
@@ -39,7 +39,7 @@ namespace PassOne.Service
         public int GetNextIdValue()
         {
             var context = new PassOneDataContext();
-            var query = from u in context.Users select u;
+            var query = from u in context.UserEntities select u;
             var users = query.ToList();
 
             return users.Select(user => user.Id).Concat(new[] { 0 }).Max();
@@ -52,7 +52,15 @@ namespace PassOne.Service
 
         private CredentialsEntity ConvertToEntity(Credentials creds)
         {
-            return new CredentialsEntity(creds.Id, creds.UserId, creds.Website, creds.Url, creds.Username, creds.EmailAddress, creds.Password);
+            var newCred = new CredentialsEntity();
+            newCred.Id = creds.Id;
+            newCred.UserId = creds.UserId;
+            newCred.Title = creds.Website;
+            newCred.Url = creds.Url;
+            newCred.Username = creds.Username;
+            newCred.Email = creds.EmailAddress;
+            newCred.Password = creds.Password;
+            return newCred;
         }
     }
 }

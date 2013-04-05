@@ -16,7 +16,7 @@ namespace PassOne
     public partial class PassOneDataContext : DbContext
     {
         public PassOneDataContext()
-            : base("name=db58826db71b25484d80eea18f014cef68Entities2")
+            : base("name=PassOneDataContext")
         {
         }
     
@@ -25,7 +25,7 @@ namespace PassOne
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<CredentialsEntity> Credentials { get; set; }
-        public DbSet<UserEntity> Users { get; set; }
+        public DbSet<CredentialsEntity> CredentialsEntities { get; set; }
+        public DbSet<UserEntity> UserEntities { get; set; }
     }
 }
