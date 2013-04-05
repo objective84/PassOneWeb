@@ -83,7 +83,7 @@ namespace PassOneUnitTests.ServiceTests
             }
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void TestRetrieveById()
         {
             var expected = new PassOneUser(TestUser.Id, TestUser.FirstName, TestUser.LastName, TestUser.Username,
@@ -120,7 +120,7 @@ namespace PassOneUnitTests.ServiceTests
             }
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void TestDelete()
         {
             using (var db = new PassOneContext())
