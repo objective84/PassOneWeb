@@ -16,7 +16,7 @@ namespace PassOneUnitTests.ServiceTests
         //Constructor
         public CredentialsSoapImplSoapTests()
         {
-            _credSrv = Factory.GetSoapService(Services.CredentialsSoapSerializer, Path, TestUser) as ISerializeSvc;
+            _credSrv = Factory.GetSoapService(Services.CredentialsSoapSerializer, Path, TestPassOneUser) as ISerializeSvc;
         }
 
         //Setup and TearDown
@@ -37,9 +37,9 @@ namespace PassOneUnitTests.ServiceTests
         [TestMethod]
         public void StoreCredentialsTest()
         {
-            _credSrv.UpdateTable(TestCredentials);
-            TestCredentials.Decrypt(TestUser.Encryption);
-            Assert.AreEqual(TestCredentials, _credSrv.RetreiveById(1));
+            _credSrv.UpdateTable(TestPassOneCredentials);
+            TestPassOneCredentials.Decrypt(TestPassOneUser.Encryption);
+            Assert.AreEqual(TestPassOneCredentials, _credSrv.RetreiveById(1));
         }
 
         /// <summary>
@@ -48,11 +48,11 @@ namespace PassOneUnitTests.ServiceTests
         [TestMethod]
         public void StoreMultipleCredentials()
         {
-            _credSrv.UpdateTable(TestCredentials);
+            _credSrv.UpdateTable(TestPassOneCredentials);
             _credSrv.UpdateTable(TestCredentials2);
-            TestCredentials.Decrypt(TestUser.Encryption);
-            TestCredentials2.Decrypt(TestUser.Encryption);
-            Assert.AreEqual(TestCredentials, _credSrv.RetreiveById(1));
+            TestPassOneCredentials.Decrypt(TestPassOneUser.Encryption);
+            TestCredentials2.Decrypt(TestPassOneUser.Encryption);
+            Assert.AreEqual(TestPassOneCredentials, _credSrv.RetreiveById(1));
             Assert.AreEqual(TestCredentials2, _credSrv.RetreiveById(2));
         }
 
@@ -62,11 +62,11 @@ namespace PassOneUnitTests.ServiceTests
         [TestMethod]
         public void UpdateCredentialsTest()
         {
-            _credSrv.UpdateTable(TestCredentials);
-            TestCredentials.Password = TestCredentials2.Password;
-            _credSrv.UpdateTable(TestCredentials);
+            _credSrv.UpdateTable(TestPassOneCredentials);
+            TestPassOneCredentials.Password = TestCredentials2.Password;
+            _credSrv.UpdateTable(TestPassOneCredentials);
             var creds = _credSrv.RetreiveById(1);
-            Assert.AreEqual(TestCredentials2.Password, ((Credentials)creds).Password);
+            Assert.AreEqual(TestCredentials2.Password, ((PassOneCredentials)creds).Password);
         }
     }
 }

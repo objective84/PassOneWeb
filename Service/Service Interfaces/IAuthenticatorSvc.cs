@@ -8,6 +8,6 @@ namespace PassOne.Service
 {
    public interface IAuthenticatorSvc
    {
-       User Authenticate(string username, string password);
+       PassOneUser Authenticate(string username, string password);
    }
 }

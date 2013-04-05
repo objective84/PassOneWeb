@@ -21,9 +21,9 @@ namespace PassOne
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            var user = (User) Session["User"];
+            var user = (PassOneUser) Session["User"];
             _credentialsManager.CreateCredentials(user,
-                                                  new Credentials(WebsiteTextbox.Text, UrlTextbox.Text,
+                                                  new PassOneCredentials(WebsiteTextbox.Text, UrlTextbox.Text,
                                                                   UsernameTextbox.Text, PasswordTextbox.Text,
                                                                   EmailTextbox.Text), Path);
             Session["User"] = user;

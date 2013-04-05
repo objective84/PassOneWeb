@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="db58826db71b25484d80eea18f014cef68ModelStoreContainer" CdmEntityContainer="PassOneDataContext">
-    <EntitySetMapping Name="CredentialsEntities">
-      <EntityTypeMapping TypeName="PassOneDataModel.CredentialsEntity">
+  <EntityContainerMapping StorageEntityContainer="PassOneDataStoreContainer" CdmEntityContainer="PassOneContext">
+    <EntitySetMapping Name="Credentials">
+      <EntityTypeMapping TypeName="PassOne.Data.Credential">
         <MappingFragment StoreEntitySet="Credentials">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -14,14 +14,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="UserEntities">
-      <EntityTypeMapping TypeName="PassOneDataModel.UserEntity">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="PassOne.Data.User">
         <MappingFragment StoreEntitySet="User">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="k" ColumnName="k" />
+          <ScalarProperty Name="v" ColumnName="v" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

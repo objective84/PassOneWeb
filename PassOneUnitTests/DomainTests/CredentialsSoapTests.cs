@@ -9,7 +9,7 @@ namespace PassOneUnitTests.DomainTests
     [TestClass]
     public class CredentialsSoapTests : PassOneSoapTests
     {
-        private readonly Credentials _encryptedTestCredentials = new Credentials(1, 1, 
+        private readonly PassOneCredentials _encryptedTestPassOneCredentials = new PassOneCredentials(1, 1, 
                                                                                  new byte[]
                                                                                      {
                                                                                          194, 223, 221, 129, 93, 130, 194,
@@ -49,15 +49,15 @@ namespace PassOneUnitTests.DomainTests
         //Constructor
         public CredentialsSoapTests()
         {
-            TestUser.Encryption =
-                new Encryption(
-                    new byte[]
-                        {
-                            220, 1, 103, 95, 8, 241, 44, 75, 252, 211, 167, 232, 169, 41, 181, 122, 51, 118, 66, 175, 96
-                            ,
-                            102, 163, 243, 26, 232, 40, 189, 174, 181, 229, 13
-                        },
-                    new byte[] {229, 219, 79, 110, 4, 98, 121, 23, 194, 214, 43, 142, 22, 247, 128, 206});
+            TestPassOneUser = new PassOneUser(TestPassOneUser.Id, TestPassOneUser.FirstName, TestPassOneUser.LastName, TestPassOneUser.Username, TestPassOneUser.Password,
+                                new byte[]
+                                    {
+                                        220, 1, 103, 95, 8, 241, 44, 75, 252, 211, 167, 232, 169, 41, 181, 122, 51, 118,
+                                        66, 175, 96
+                                        ,
+                                        102, 163, 243, 26, 232, 40, 189, 174, 181, 229, 13
+                                    },
+                                new byte[] {229, 219, 79, 110, 4, 98, 121, 23, 194, 214, 43, 142, 22, 247, 128, 206});
         }
 
         /// <summary>
@@ -66,10 +66,10 @@ namespace PassOneUnitTests.DomainTests
         [TestMethod]
         public void TestEncrypt_Pass()
         {
-            var test = TestCredentials;
-            test.Encrypt(TestUser.Encryption);
+            var test = TestPassOneCredentials;
+            test.Encrypt(TestPassOneUser.Encryption);
 
-            Assert.AreEqual(test, _encryptedTestCredentials);
+            Assert.AreEqual(test, _encryptedTestPassOneCredentials);
         }
 
         /// <summary>
@@ -78,10 +78,10 @@ namespace PassOneUnitTests.DomainTests
         [TestMethod]
         public void TestDecrypt_Pass()
         {
-            var test = _encryptedTestCredentials;
+            var test = _encryptedTestPassOneCredentials;
 
-            test.Decrypt(TestUser.Encryption);
-            Assert.AreEqual(test, TestCredentials);
+            test.Decrypt(TestPassOneUser.Encryption);
+            Assert.AreEqual(test, TestPassOneCredentials);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace PassOneUnitTests.DomainTests
         {
             try
             {
-                var test = _encryptedTestCredentials;
+                var test = _encryptedTestPassOneCredentials;
                 test.Decrypt(TestUser2.Encryption);
                 Assert.Fail();
             }
@@ -107,13 +107,13 @@ namespace PassOneUnitTests.DomainTests
         [TestMethod]
         public void TestEncryptDecryptPass()
         {
-            var test = TestCredentials;
-            test.Encrypt(TestUser.Encryption);
+            var test = TestPassOneCredentials;
+            test.Encrypt(TestPassOneUser.Encryption);
 
-            Assert.AreEqual(test, TestCredentials);
+            Assert.AreEqual(test, TestPassOneCredentials);
 
-            TestCredentials.Decrypt(TestUser.Encryption);
-            Assert.AreEqual(test, TestCredentials);
+            TestPassOneCredentials.Decrypt(TestPassOneUser.Encryption);
+            Assert.AreEqual(test, TestPassOneCredentials);
         }
 
         /// <summary>
@@ -122,12 +122,12 @@ namespace PassOneUnitTests.DomainTests
         [TestMethod]
         public void TestEncryptDecryptFail()
         {
-            var test = TestCredentials;
-            test.Encrypt(TestUser.Encryption);
+            var test = TestPassOneCredentials;
+            test.Encrypt(TestPassOneUser.Encryption);
 
-            Assert.AreEqual(test, _encryptedTestCredentials);
+            Assert.AreEqual(test, _encryptedTestPassOneCredentials);
 
-            test.Decrypt(TestUser.Encryption);
+            test.Decrypt(TestPassOneUser.Encryption);
             Assert.AreNotEqual(test, TestCredentials2);
         }
 

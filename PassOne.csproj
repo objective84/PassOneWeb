@@ -135,7 +135,7 @@
     <Compile Include="Business\CredentialsManager.cs" />
     <Compile Include="Business\ManagerBase.cs" />
     <Compile Include="Business\UserManager.cs" />
-    <Compile Include="CredentialsEntity.cs">
+    <Compile Include="Credential.cs">
       <DependentUpon>PassOneDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
@@ -145,14 +145,15 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Domain\Credentials.cs" />
+    <Compile Include="Domain\PassOneCredentials.cs" />
     <Compile Include="Domain\Encryption.cs" />
     <Compile Include="Domain\Exceptions\CredentialsNotFoundException.cs" />
     <Compile Include="Domain\Exceptions\EncryptionException.cs" />
     <Compile Include="Domain\Exceptions\InvalidLoginException.cs" />
     <Compile Include="Domain\Exceptions\MissingInformationException.cs" />
     <Compile Include="Domain\Exceptions\PasswordDoesNotMatchConfirmationException.cs" />
-    <Compile Include="Domain\User.cs" />
+    <Compile Include="Domain\PassOneObject.cs" />
+    <Compile Include="Domain\PassOneUser.cs" />
     <Compile Include="CredentialsList.aspx.cs">
       <DependentUpon>CredentialsList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -227,7 +228,7 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
-    <Compile Include="UserEntity.cs">
+    <Compile Include="User.cs">
       <DependentUpon>PassOneDataModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -249,6 +250,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
     <EntityDeploy Include="PassOneDataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>PassOneDataModel.Designer.cs</LastGenOutput>
@@ -268,9 +272,6 @@
       <DependentUpon>PassOneDataModel.edmx</DependentUpon>
       <LastGenOutput>PassOneDataModel.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ClassDiagram1.cd" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

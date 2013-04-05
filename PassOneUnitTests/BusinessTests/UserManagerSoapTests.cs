@@ -84,7 +84,7 @@ namespace PassOneUnitTests.BusinessTests
             var username = TestUser2.Username;
             var password = TestUser2.Password;
             var expected = TestUser2;
-            User actual;
+            PassOneUser actual;
             actual = _manager.Authenticate(username, password, Path);
             Assert.AreEqual(expected, actual);
         }
@@ -96,13 +96,13 @@ namespace PassOneUnitTests.BusinessTests
         public void CreateTest()
         {
             Stream.Close();
-            User user = TestUser;
-            _manager.CreateUser(user, Path);
+            PassOneUser passOneUser = TestPassOneUser;
+            _manager.CreateUser(passOneUser, Path);
 
             Stream = new FileStream(Path + "data\\users.bin", FileMode.Open, FileAccess.Read);
 
             var table = Soap.Deserialize(Stream) as Hashtable;
-            Assert.AreEqual(user, table[user.Id]);
+            Assert.AreEqual(passOneUser, table[passOneUser.Id]);
         }
 
         /// <summary>
@@ -111,10 +111,10 @@ namespace PassOneUnitTests.BusinessTests
         [TestMethod()]
         public void UpdateTest()
         {
-            var table = new Hashtable() {{TestUser.Id, TestUser}};
+            var table = new Hashtable() {{TestPassOneUser.Id, TestPassOneUser}};
             Soap.Serialize(Stream, table);
             Stream.Close();
-            var user = TestUser;
+            var user = TestPassOneUser;
             user.FirstName = "Arwen";
             _manager.UpdateUser(user, Path);
             string expected = "Arwen";
@@ -122,7 +122,7 @@ namespace PassOneUnitTests.BusinessTests
             Stream = new FileStream(Path + "data\\users.bin", FileMode.Open, FileAccess.Read);
 
             table = Soap.Deserialize(Stream) as Hashtable;
-            string actual = ((User) table[TestUser.Id]).FirstName;
+            string actual = ((PassOneUser) table[TestPassOneUser.Id]).FirstName;
             Assert.AreEqual(expected, actual);
         }
 
@@ -133,20 +133,17 @@ namespace PassOneUnitTests.BusinessTests
         public void GetCredentialsListTest()
         {
             Stream.Close();
-            User user = TestUser;
-            Credentials testCreds1, testCreds2;
-            testCreds1 = TestCredentials.Copy();
+            PassOneUser passOneUser = TestPassOneUser;
+            PassOneCredentials testCreds1, testCreds2;
+            testCreds1 = TestPassOneCredentials.Copy();
             testCreds2 = TestCredentials2.Copy();
 
             IDictionary<string, int> expected = new Dictionary<string, int>();
             expected.Add(testCreds1.Website, testCreds1.Id);
             expected.Add(testCreds2.Website, testCreds2.Id);
 
-            user.CredentialsList.Add(testCreds1.Website, testCreds1.Id);
-            user.CredentialsList.Add(testCreds2.Website, testCreds2.Id);
-
-            testCreds1.Encrypt(user.Encryption);
-            testCreds2.Encrypt(user.Encryption);
+            testCreds1.Encrypt(passOneUser.Encryption);
+            testCreds2.Encrypt(passOneUser.Encryption);
             var credStream = new FileStream(Path + "data\\data.bin", FileMode.Create, FileAccess.Write);
             var table = new Hashtable() { { testCreds1.Id, testCreds1 }, { testCreds2.Id, testCreds2 } };
             Soap.Serialize(credStream, table);
@@ -154,8 +151,8 @@ namespace PassOneUnitTests.BusinessTests
 
 
             Dictionary<string, int> actual;
-            actual = _manager.GetCredentialsList(user, Path);
-            Assert.AreEqual(expected[TestCredentials.Website], actual[TestCredentials.Website]);
+            actual = _manager.GetCredentialsList(passOneUser, Path);
+            Assert.AreEqual(expected[TestPassOneCredentials.Website], actual[TestPassOneCredentials.Website]);
 
         }
     }

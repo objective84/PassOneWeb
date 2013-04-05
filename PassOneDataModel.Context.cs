@@ -13,10 +13,10 @@ namespace PassOne
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PassOneDataContext : DbContext
+    public partial class PassOneContext : DbContext
     {
-        public PassOneDataContext()
-            : base("name=PassOneDataContext")
+        public PassOneContext()
+            : base("name=PassOneContext")
         {
         }
     
@@ -25,7 +25,7 @@ namespace PassOne
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<CredentialsEntity> CredentialsEntities { get; set; }
-        public DbSet<UserEntity> UserEntities { get; set; }
+        public DbSet<Credential> Credentials { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

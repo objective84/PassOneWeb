@@ -24,15 +24,15 @@ namespace PassOne.Service
         /// <param name="obj">User to be stored</param>
         public override void UpdateTable(object obj)
         {
-            User user = null;
+            PassOneUser passOneUser = null;
             try
             {
-                user = (User)obj;
+                passOneUser = (PassOneUser)obj;
                 var userTable = RetrieveTable();
-                if (userTable.ContainsKey(user.Id))
-                    userTable[user.Id] = user;
+                if (userTable.ContainsKey(passOneUser.Id))
+                    userTable[passOneUser.Id] = passOneUser;
                 else
-                    userTable.Add(user.Id, user);
+                    userTable.Add(passOneUser.Id, passOneUser);
                 Store(userTable);
             }
             catch (InvalidCastException)
@@ -46,13 +46,13 @@ namespace PassOne.Service
         /// </summary>
         /// <param name="username">The username of the requested User</param>
         /// <returns>The requested user if found; if not returns null</returns>
-        public User RetrieveByUsername(string username)
+        public PassOneUser RetrieveByUsername(string username)
         {
             var users = RetrieveTable();
             var keys = users.Keys;
             foreach (var key in keys)
             {
-                var temp = (User)users[key];
+                var temp = (PassOneUser)users[key];
                 if (temp.Username == username) return temp;
             }
             return null;

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using PassOne.Domain;
 using PassOne.Service;
+using PassOne.Service.Factories;
 
 namespace PassOne.Business
 {
@@ -15,29 +16,29 @@ namespace PassOne.Business
 
         protected ManagerBase(Services service)
         {
-            Factory = new SoapFactory();
+            Factory = new EntityFactory();
             _service = service;
         }
         /// <summary>
         /// Method for retreiving a given service from the Service Layer
         /// </summary>
         /// <param name="path">The directory path to where the app can find the PassOne data files</param>
-        /// <param name="user">Optional parameter - required for credentials services</param>
+        /// <param name="passOneUser">Optional parameter - required for credentials services</param>
         /// <returns>The requested service</returns>
-        protected ISerializeSvc GetService(string path, User user = null)
+        protected IEntitySvc GetService(string path, PassOneUser passOneUser = null)
         {
-            return (ISerializeSvc)Factory.GetSoapService(_service, path, user);
+            return (IEntitySvc)Factory.GetEntityService(_service);
         }
         /// <summary>
         /// Method for retreiving a given service from the Service Layer, used only if the requested service is of another type.
         /// </summary>
         /// <param name="service">Enum - defines the specific service to be retrived</param>
         /// <param name="path">The directory path to where the app can find the PassOne data files</param>
-        /// <param name="user">Optional parameter - required for credentials services</param>
+        /// <param name="passOneUser">Optional parameter - required for credentials services</param>
         /// <returns></returns>
-        protected ISerializeSvc GetService(Services service, string path, User user = null)
+        protected IEntitySvc GetService(Services service)
         {
-            return (ISerializeSvc)Factory.GetSoapService(service, path, user);
+            return (IEntitySvc)Factory.GetEntityService(service);
         }
     }
 }

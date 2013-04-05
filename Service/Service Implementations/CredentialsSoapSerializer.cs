@@ -17,17 +17,17 @@ namespace PassOne.Service
             get { return DirectoryPath + "data\\data.bin"; }
         }
 
-        private readonly User _myUser;
+        private readonly PassOneUser _myPassOneUser;
 
-        public User MyUser
+        public PassOneUser MyPassOneUser
         {
-            get { return _myUser; }
+            get { return _myPassOneUser; }
         }
 
         //Contructor
-        public CredentialsSoapSerializer(User user)
+        public CredentialsSoapSerializer(PassOneUser passOneUser)
         {
-            _myUser = user;
+            _myPassOneUser = passOneUser;
         }
 
         /// <summary>
@@ -39,8 +39,8 @@ namespace PassOne.Service
         {
             try
             {
-                var value = RetrieveTable()[id] as Credentials;
-                value.Decrypt(_myUser.Encryption);
+                var value = RetrieveTable()[id] as PassOneCredentials;
+                value.Decrypt(_myPassOneUser.Encryption);
                 return value;
             }
             catch (NullReferenceException)
@@ -56,16 +56,16 @@ namespace PassOne.Service
         /// <param name="obj">Credential to be stored</param>
         public override void UpdateTable(object obj)
         {
-            Credentials credentials = null;
+            PassOneCredentials passOneCredentials = null;
             try
             {
-                credentials = (Credentials) obj;
-                credentials.Encrypt(_myUser.Encryption);
+                passOneCredentials = (PassOneCredentials) obj;
+                passOneCredentials.Encrypt(_myPassOneUser.Encryption);
                 var credsTable = RetrieveTable();
-                if (credsTable.ContainsKey(credentials.Id))
-                    credsTable[credentials.Id] = credentials;
+                if (credsTable.ContainsKey(passOneCredentials.Id))
+                    credsTable[passOneCredentials.Id] = passOneCredentials;
                 else
-                    credsTable.Add(credentials.Id, credentials);
+                    credsTable.Add(passOneCredentials.Id, passOneCredentials);
                 Store(credsTable);
             }
             catch (InvalidCastException)

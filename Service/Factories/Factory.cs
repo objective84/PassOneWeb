@@ -26,7 +26,7 @@ namespace PassOne.Service
         {
             return null;
         }
-        public virtual IService GetSoapService(Services serviceName, string path, User user = null)
+        public virtual IService GetSoapService(Services serviceName, string path, PassOneUser passOneUser = null)
         {
             return null;
         }

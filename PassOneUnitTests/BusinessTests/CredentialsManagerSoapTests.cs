@@ -81,13 +81,13 @@ namespace PassOneUnitTests.BusinessTests
         public void CreateTest()
         {
             Stream.Close();
-            var user = TestUser; 
-            var creds = TestCredentials;
-            _manager.CreateCredentials(user, TestCredentials, Path);
+            var user = TestPassOneUser; 
+            var creds = TestPassOneCredentials;
+            _manager.CreateCredentials(user, TestPassOneCredentials, Path);
             Stream = new FileStream(Path + "data\\data.bin", FileMode.Open, FileAccess.Read);
             var table = Soap.Deserialize(Stream) as Hashtable;
             var expected = creds;
-            var actual = table[TestCredentials.Id];
+            var actual = table[TestPassOneCredentials.Id];
             Assert.AreEqual(expected, actual);
         }
 
@@ -97,16 +97,15 @@ namespace PassOneUnitTests.BusinessTests
         [TestMethod()]
         public void DeleteTest()
         {
-            Credentials creds = TestCredentials.Copy();
-            User user = TestUser;
-            creds.Encrypt(user.Encryption);
-            user.CredentialsList.Add(TestCredentials.Website, TestCredentials.Id);
+            PassOneCredentials creds = TestPassOneCredentials.Copy();
+            PassOneUser passOneUser = TestPassOneUser;
+            creds.Encrypt(passOneUser.Encryption);
 
-            var table = new Hashtable() { { TestCredentials.Id, TestCredentials } };
+            var table = new Hashtable() { { TestPassOneCredentials.Id, TestPassOneCredentials } };
             Soap.Serialize(Stream, table);
             Stream.Close();
-            creds.Decrypt(user.Encryption);
-            _manager.DeleteCredentials(creds, user, Path);
+            creds.Decrypt(passOneUser.Encryption);
+            _manager.DeleteCredentials(creds, passOneUser, Path);
             Stream = new FileStream(Path + "data\\data.bin", FileMode.Open, FileAccess.Read);
             table = Soap.Deserialize(Stream)as Hashtable;
             Assert.AreEqual(0, table.Count);
@@ -119,16 +118,16 @@ namespace PassOneUnitTests.BusinessTests
         [TestMethod()]
         public void FindTest()
         {
-            User user = TestUser;
-            int id = TestCredentials.Id;
-            var expected = TestCredentials.Copy();
-            expected.Encrypt(user.Encryption);
+            PassOneUser passOneUser = TestPassOneUser;
+            int id = TestPassOneCredentials.Id;
+            var expected = TestPassOneCredentials.Copy();
+            expected.Encrypt(passOneUser.Encryption);
             var table = new Hashtable() { { expected.Id, expected } };
             Soap.Serialize(Stream, table);
             Stream.Close();
-            expected.Decrypt(user.Encryption);
+            expected.Decrypt(passOneUser.Encryption);
 
-            Credentials actual = _manager.FindCredentials(user, id, Path);
+            PassOneCredentials actual = _manager.FindCredentials(passOneUser, id, Path);
             Assert.AreEqual(expected, actual);
         }
 
@@ -138,19 +137,19 @@ namespace PassOneUnitTests.BusinessTests
         [TestMethod()]
         public void UpdateTest()
         {
-            User user = TestUser;
-            Credentials creds = TestCredentials.Copy();
+            PassOneUser passOneUser = TestPassOneUser;
+            PassOneCredentials creds = TestPassOneCredentials.Copy();
             var table = new Hashtable() { { creds.Id, creds } };
             Soap.Serialize(Stream, table);
             Stream.Close();
             creds.Username = TestCredentials2.Username;
-            _manager.UpdateCredentials(user, creds, Path);
+            _manager.UpdateCredentials(passOneUser, creds, Path);
             var expected = TestCredentials2.Username;
 
             Stream = new FileStream(Path + "data\\data.bin", FileMode.Open, FileAccess.Read);
             table = Soap.Deserialize(Stream) as Hashtable;
-            creds = ((Credentials) table[TestCredentials.Id]);
-            creds.Decrypt(user.Encryption);
+            creds = ((PassOneCredentials) table[TestPassOneCredentials.Id]);
+            creds.Decrypt(passOneUser.Encryption);
             var actual = creds.Username;
             
             Assert.AreEqual(expected, actual);

@@ -9,12 +9,9 @@ namespace PassOne.Service
 {
     public interface IEntitySvc : IService
     {
-
-        Credentials RetreiveById(int id);
-        void Create(Credentials creds);
-        void Delete(Credentials creds);
+        PassOneObject RetreiveById(int id);
+        void Create(PassOneObject obj);
+        void Delete(PassOneObject obj);
         int GetNextIdValue();
-        Credentials ConvertToDomainObject(CredentialsEntity entity);
-        CredentialsEntity ConvertToEntity(Credentials creds);
     }
 }

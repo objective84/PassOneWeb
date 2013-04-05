@@ -33,14 +33,14 @@ namespace PassOneUnitTests.ServiceTests
         [TestMethod]
         public void TestStoreUser()
         {
-            _userSvc.UpdateTable(TestUser);
-            Assert.AreEqual(TestUser, _userSvc.RetreiveById(TestUser.Id));
+            _userSvc.UpdateTable(TestPassOneUser);
+            Assert.AreEqual(TestPassOneUser, _userSvc.RetreiveById(TestPassOneUser.Id));
         }
 
         [TestMethod]
         public void TestStoreMultipleUsers()
         {
-            _userSvc.UpdateTable(TestUser);
+            _userSvc.UpdateTable(TestPassOneUser);
             _userSvc.UpdateTable(TestUser2);
             Assert.AreEqual(TestUser2, _userSvc.RetreiveById(TestUser2.Id));
         }
@@ -48,10 +48,10 @@ namespace PassOneUnitTests.ServiceTests
         [TestMethod]
         public void TestUpdateUser()
         {
-            _userSvc.UpdateTable(TestUser);
-            TestUser.Password = TestUser2.Password;
-            _userSvc.UpdateTable(TestUser);
-            Assert.AreEqual(TestUser2.Password, ((User)_userSvc.RetreiveById(TestUser.Id)).Password);
+            _userSvc.UpdateTable(TestPassOneUser);
+            TestPassOneUser.Password = TestUser2.Password;
+            _userSvc.UpdateTable(TestPassOneUser);
+            Assert.AreEqual(TestUser2.Password, ((PassOneUser)_userSvc.RetreiveById(TestPassOneUser.Id)).Password);
         }
     }
 }

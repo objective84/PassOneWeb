@@ -23,7 +23,7 @@ namespace PassOneUnitTests.BusinessTests
             Directory.CreateDirectory(Path + "data");
             var soap = new SoapFormatter();
             var stream = new FileStream(Path + "\\data\\users.bin", FileMode.Create, FileAccess.Write);
-            var table = new Hashtable {{TestUser.Id, TestUser}, {TestUser2.Id, TestUser2}};
+            var table = new Hashtable {{TestPassOneUser.Id, TestPassOneUser}, {TestUser2.Id, TestUser2}};
             soap.Serialize(stream, table);
             stream.Close();
         }
@@ -44,7 +44,7 @@ namespace PassOneUnitTests.BusinessTests
         {
             try
             {
-                var test = _authenticator.Authenticate(TestUser.Username, TestUser2.Password);
+                var test = _authenticator.Authenticate(TestPassOneUser.Username, TestUser2.Password);
                 Assert.Fail();
             }
             catch (InvalidLoginException)
@@ -57,8 +57,8 @@ namespace PassOneUnitTests.BusinessTests
         [TestMethod]
         public void TestAuthenticatePass()
         {
-                var test = _authenticator.Authenticate(TestUser.Username, TestUser.Password);
-                Assert.AreEqual(TestUser, test);
+                var test = _authenticator.Authenticate(TestPassOneUser.Username, TestPassOneUser.Password);
+                Assert.AreEqual(TestPassOneUser, test);
         }
     }
 }

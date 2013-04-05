@@ -1,40 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="PassOneDataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-  <EntityContainer Name="PassOneDataContext" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="CredentialsEntities" EntityType="PassOneDataModel.CredentialsEntity" />
-    <EntitySet Name="UserEntities" EntityType="PassOneDataModel.UserEntity" />
-    <AssociationSet Name="FK_Credentials_User" Association="PassOneDataModel.FK_Credentials_User">
-      <End Role="User" EntitySet="UserEntities" />
-      <End Role="Credentials" EntitySet="CredentialsEntities" />
+<Schema Namespace="PassOne.Data" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="PassOneContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Credentials" EntityType="PassOne.Data.Credential" />
+    <EntitySet Name="Users" EntityType="PassOne.Data.User" />
+    <AssociationSet Name="FK_Credentials_User" Association="PassOne.Data.FK_Credentials_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Credentials" EntitySet="Credentials" />
     </AssociationSet>
   </EntityContainer>
-  <EntityType Name="CredentialsEntity">
+  <EntityType Name="Credential">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" />
     <Property Name="UserId" Type="Int32" Nullable="false" />
-    <Property Name="Title" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
-    <Property Name="Url" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
-    <Property Name="Username" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
-    <Property Name="Email" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
-    <Property Name="Password" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
-    <NavigationProperty Name="User" Relationship="PassOneDataModel.FK_Credentials_User" FromRole="Credentials" ToRole="User" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Url" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="User" Relationship="PassOne.Data.FK_Credentials_User" FromRole="Credentials" ToRole="User" />
   </EntityType>
-  <EntityType Name="UserEntity">
+  <EntityType Name="User">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
-    <Property Name="LastName" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
-    <Property Name="Username" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
-    <Property Name="Password" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
-    <NavigationProperty Name="Credentials" Relationship="PassOneDataModel.FK_Credentials_User" FromRole="User" ToRole="Credentials" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="k" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="v" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Credentials" Relationship="PassOne.Data.FK_Credentials_User" FromRole="User" ToRole="Credentials" />
   </EntityType>
   <Association Name="FK_Credentials_User">
-    <End Role="User" Type="PassOneDataModel.UserEntity" Multiplicity="1" />
-    <End Role="Credentials" Type="PassOneDataModel.CredentialsEntity" Multiplicity="*" />
+    <End Role="User" Type="PassOne.Data.User" Multiplicity="1" />
+    <End Role="Credentials" Type="PassOne.Data.Credential" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
         <PropertyRef Name="Id" />

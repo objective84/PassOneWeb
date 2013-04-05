@@ -8,58 +8,80 @@ using PassOne.Domain;
 
 namespace PassOne.Service
 {
-    public class EntityUserImplementation : IService
+    public class EntityUserImplementation : IEntitySvc
     {
-        public User RetreiveById(int id)
+        public PassOneObject RetreiveById(int id)
         {
-            var context = new PassOneDataContext();
-            var query = from u in context.UserEntities select u;
+            var context = new PassOneContext();
+            var query = from u in context.Users select u;
             var users = query.ToList();
 
             return users.Where(user => user.Id == id).Select(ConvertToDomainObject).FirstOrDefault();
         }
 
-        public void Create(User user)
+        public void Create(PassOneObject obj)
         {
-            user.Id = GetNextIdValue();
-            using (var db = new PassOneDataContext())
+            obj.Id = GetNextIdValue();
+            using (var db = new PassOneContext())
             {
-                db.UserEntities.Add(ConverToEntity(user));
+                db.Users.Add(ConvertToEntity(obj));
                 db.SaveChanges();
             }
         }
 
-        public void Delete(User user)
+        public void Delete(PassOneObject obj)
         {
-            using (var db = new PassOneDataContext())
+            using (var db = new PassOneContext())
             {
-                db.UserEntities.Remove(ConverToEntity(user));
+                var userQuery = from u in db.Users select u;
+                var user = userQuery.ToList().FirstOrDefault(user1 => user1.Id == obj.Id);
+                db.Users.Remove(user);
                 db.SaveChanges();
             }
         }
 
         public int GetNextIdValue()
         {
-            var context = new PassOneDataContext();
-            var query = from u in context.UserEntities select u;
+            var context = new PassOneContext();
+            var query = from u in context.Users select u;
             var users = query.ToList();
 
-            return users.Select(user => user.Id).Concat(new[] {0}).Max();
-        }
-        
-        private User ConvertToDomainObject(UserEntity entity)
-        {
-            return new User(entity.Id, entity.FirstName, entity.LastName, entity.Username, entity.Password);
+            return users.Select(user => user.Id).Concat(new[] {0}).Max() + 1;
         }
 
-        private UserEntity ConverToEntity(User user)
+        public PassOneUser Authenticate(string username, string password)
         {
-            var newUser = new UserEntity();
-            newUser.Id = user.Id;
-            newUser.FirstName = user.FirstName;
-            newUser.LastName = user.LastName;
-            newUser.Username = user.Username;
-            newUser.Password = user.Password;
+            User user;
+            using (var db = new PassOneContext())
+            {
+                db.Database.Connection.Open();
+                var query = from u in db.Users select u;
+               user = query.ToList().FirstOrDefault(user1 => user1.Username == username && user1.Password == password);
+            }
+            if (user != null)
+                return new PassOneUser(user.Id, user.FirstName, user.LastName, user.Username, user.Password, user.k,
+                                       user.v);
+            return null;
+        }
+        
+        private PassOneUser ConvertToDomainObject(User entity)
+        {
+            return new PassOneUser(entity.Id, entity.FirstName, entity.LastName, entity.Username, entity.Password, entity.k, entity.v);
+        }
+
+        private User ConvertToEntity(PassOneObject obj)
+        {
+            var user = (PassOneUser) obj;
+            var newUser = new User
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Username = user.Username,
+                    Password = user.Password,
+                    k = user.K,
+                    v = user.V
+                };
             return newUser;
         }
     }

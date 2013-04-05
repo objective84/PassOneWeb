@@ -12,14 +12,14 @@ namespace PassOne
     public partial class CredentialsList : System.Web.UI.Page
     {
         public static string Path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\PassOneWeb\\";
-        private User _user;
+        private PassOneUser _passOneUser;
         private UserManager _userManager = new UserManager();
         private CredentialsManager _credentialsManager = new CredentialsManager();
      
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            _user = (User)Session["User"];
+            _passOneUser = (PassOneUser)Session["User"];
             if (IsPostBack) return;
 
             CredentialsListBox.SelectedIndexChanged += CredentialsListBox_SelectedIndexChanged;
@@ -43,11 +43,11 @@ namespace PassOne
 
         protected void DeleteButton_Click(object sender, EventArgs e)
         {
-            var creds = _credentialsManager.FindCredentials(_user,
-                                                            _userManager.GetCredentialsList(_user, Path)[
+            var creds = _credentialsManager.FindCredentials(_passOneUser,
+                                                            _userManager.GetCredentialsList(_passOneUser, Path)[
                                                                 CredentialsListBox.SelectedItem.Value], Path);
-            _credentialsManager.DeleteCredentials(creds, _user, Path);
-            Session["User"] = _user;
+            _credentialsManager.DeleteCredentials(creds, _passOneUser, Path);
+            Session["User"] = _passOneUser;
             UpdateListBox();
             
         }
@@ -56,7 +56,7 @@ namespace PassOne
         {
             var tempList = (from ListItem item in CredentialsListBox.Items select item.Text).ToList();
 
-            var credentialsList = _userManager.GetCredentialsList(_user, Path);
+            var credentialsList = _userManager.GetCredentialsList(_passOneUser, Path);
 
             foreach (var key in credentialsList.Keys.Where(key => !tempList.Contains(key)))
                 CredentialsListBox.Items.Add(key);
@@ -71,9 +71,9 @@ namespace PassOne
                 PasswordValue.Visible = false;
                 ShowPasswordButton.Text = "Show Password";
             }
-            _user = (User)Session["User"];
-            var id = _userManager.GetCredentialsList(_user, Path)[CredentialsListBox.SelectedItem.Value];
-            var creds = _credentialsManager.FindCredentials(_user, id, Path);
+            _passOneUser = (PassOneUser)Session["User"];
+            var id = _userManager.GetCredentialsList(_passOneUser, Path)[CredentialsListBox.SelectedItem.Value];
+            var creds = _credentialsManager.FindCredentials(_passOneUser, id, Path);
             WebsiteValue.Text = creds.Website;
             UrlValue.Text = creds.Url;
             UsernameValue.Text = creds.Username;

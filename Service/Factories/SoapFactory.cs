@@ -12,9 +12,9 @@ namespace PassOne.Service
         /// </summary>
         /// <param name="serviceName">Enum - defines the specific service to be retrived</param>
         /// <param name="path">The directory path to where the app can find the PassOne data files</param>
-        /// <param name="user">Optional parameter - required for credentials services</param>
+        /// <param name="passOneUser">Optional parameter - required for credentials services</param>
         /// <returns></returns>
-        public override IService GetSoapService(Services serviceName, string path,  User user = null)
+        public override IService GetSoapService(Services serviceName, string path,  PassOneUser passOneUser = null)
         {
             Type type;
             var obj = new object();
@@ -25,7 +25,7 @@ namespace PassOne.Service
             }
             catch (MissingMethodException)
             {
-                obj = new CredentialsSoapSerializer(user);
+                obj = new CredentialsSoapSerializer(passOneUser);
             }
             catch (Exception e)
             {

@@ -26,7 +26,7 @@ namespace PassOne
                 Session["User"] = _userManager.Authenticate(UsernameTextBox.Text, PasswordTextBox.Text, Path);
                 Server.Transfer("CredentialsList.aspx");
             }
-            catch (MissingInformationException i)
+            catch (MissingInformationException)
             {
                
             }
