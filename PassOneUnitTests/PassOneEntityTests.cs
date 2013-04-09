@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Web.Configuration;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PassOne;
 using PassOne.Domain;
 using PassOne.Service;
@@ -37,7 +39,7 @@ namespace PassOneUnitTests
            Factory = new EntityFactory();
            TestUser = new User()
                {
-                   Id = 1,
+                   Id = 100,
                    FirstName = "Peter",
                    LastName = "Varner-Howland",
                    Username = "pvarnerhowland",
@@ -47,7 +49,7 @@ namespace PassOneUnitTests
                };
            TestUser2 = new User()
                {
-                   Id = 2,
+                   Id = 200,
                    FirstName = "Arwen",
                    LastName = "Varner-Howland",
                    Username = "avarnerhowland",
@@ -62,7 +64,7 @@ namespace PassOneUnitTests
                    Username = "pvarnerhowland",
                    Password = "testpass123",
                    Email = "pvarnerhowland@regis.edu",
-                   Id = 1
+                   Id = 100
                };
            TestCredentials2 = new Credential()
                {
@@ -71,8 +73,77 @@ namespace PassOneUnitTests
                    Username = "pvarnerhowland",
                    Password = "testpass456",
                    Email = "pvarnerhowland@regis.edu",
-                   Id = 2
+                   Id = 200
                };
+       }
+
+       [TestInitialize]
+       public void Setup()
+       {
+           try
+           {
+               using (var db = new PassOneContext())
+               {
+                   db.Database.Connection.Open();
+                   TestCredentials.UserId = TestUser.Id;
+                   TestUser.Credentials.Add(TestCredentials);
+                   db.Users.Add(TestUser);
+                   db.Credentials.Add(TestCredentials);
+                   db.SaveChanges();
+               }
+           }
+           catch (DbEntityValidationException e)
+           {
+               foreach (var eve in e.EntityValidationErrors)
+               {
+                   System.Diagnostics.Debug.WriteLine(
+                       "Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                       eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                   foreach (var ve in eve.ValidationErrors)
+                   {
+                       System.Diagnostics.Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                                          ve.PropertyName, ve.ErrorMessage);
+                   }
+               }
+           }
+           catch (Exception)
+           {
+
+           }
+       }
+
+       [TestCleanup]
+       public void TearDown()
+       {
+               using (var db = new PassOneContext())
+               {
+                   try
+                   {
+                       db.Database.Connection.Open();
+                       var credsQuery = from c in db.Credentials select c;
+                       var creds = credsQuery.ToList().FirstOrDefault((creds1 => creds1.Id == TestCredentials.Id));
+                       db.Credentials.Remove(creds);
+                       db.SaveChanges();
+                   }
+                   catch
+                   {
+                       
+                   }
+                   try
+                   {
+                       var userQuery = from u in db.Users select u;
+                       var user = userQuery.ToList().FirstOrDefault(user1 => user1.Id == TestUser.Id);
+                       db.Users.Remove(user);
+                       db.SaveChanges();
+                   }
+                   catch
+                   {
+                   }
+               }
+
+               TestUser.Credentials = null;
+               TestCredentials.UserId = 0;
+           
        }
 
        protected SqlConnection GetConnection()

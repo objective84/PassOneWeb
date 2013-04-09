@@ -21,69 +21,9 @@ namespace PassOneUnitTests.ServiceTests
             _service = Factory.GetEntityService(Services.EntityUserImplementation) as EntityUserImplementation;
         }
 
-        [TestInitialize]
-        public void Setup()
-        {
-            try
-            {
-                using (var db = new PassOneContext())
-                {
-                    db.Database.Connection.Open();
-                    TestCredentials.UserId = TestUser.Id;
-                    TestUser.Credentials.Add(TestCredentials);
-                    db.Users.Add(TestUser);
-                    db.Credentials.Add(TestCredentials);
-                    db.SaveChanges();
-                }
-            }
-            catch (DbEntityValidationException e)
-            {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    System.Diagnostics.Debug.WriteLine(
-                        "Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        System.Diagnostics.Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                                           ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
-            }
-            catch (Exception)
-            {
+        
 
-            }
-        }
-
-        [TestCleanup]
-        public void TearDown()
-        {
-            try
-            {
-                using (var db = new PassOneContext())
-                {
-                    db.Database.Connection.Open();
-                    var credsQuery = from c in db.Credentials select c;
-                    var creds = credsQuery.ToList().FirstOrDefault((creds1 => creds1.Id == TestCredentials.Id));
-                    db.Credentials.Remove(creds);
-                    db.SaveChanges();
-                    var userQuery = from u in db.Users select u;
-                    var user = userQuery.ToList().FirstOrDefault(user1 => user1.Id == TestUser.Id);
-                    db.Users.Remove(user);
-                    db.SaveChanges();
-                }
-
-                TestUser.Credentials = null;
-                TestCredentials.UserId = 0;
-            }
-            catch
-            {
-                
-            }
-        }
-
-        //[TestMethod]
+        [TestMethod]
         public void TestRetrieveById()
         {
             var expected = new PassOneUser(TestUser.Id, TestUser.FirstName, TestUser.LastName, TestUser.Username,
@@ -120,7 +60,7 @@ namespace PassOneUnitTests.ServiceTests
             }
         }
 
-        //[TestMethod]
+        [TestMethod]
         public void TestDelete()
         {
             using (var db = new PassOneContext())

@@ -31,7 +31,9 @@ namespace PassOne.Service
         {
             using (var db = new PassOneContext())
             {
-                db.Credentials.Remove(ConvertToEntity(obj));
+                var query = from c in db.Credentials select c;
+                var creds = query.ToList().FirstOrDefault(creds1 => creds1.Id == obj.Id);
+                db.Credentials.Remove(creds);
                 db.SaveChanges();
             }
         }
