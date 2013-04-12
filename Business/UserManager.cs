@@ -61,24 +61,6 @@ namespace PassOne.Business
             return service.Authenticate(username, password);
         }
 
-        /// <summary>
-        /// Method to create an IDictionary representation of the user's credentials list. Keys are the credentials title, values are the credentials Ids
-        /// </summary>
-        /// <param name="passOneUser">The user whose credentials list is being retrieved</param>
-        /// <param name="path">The directory path to where the app can find the PassOne data files</param>
-        /// <returns>An IDictionary object with the user's credentials</returns>
-        public Dictionary<string, int> GetCredentialsList(PassOneUser passOneUser, string path)
-        {
-            Dictionary<string, int> list;
-            using (var db = new PassOneContext())
-            {
-                db.Database.Connection.Open();
-                var query = from u in db.Credentials select u;
-                list = query.ToList().Where(credential => credential.UserId == passOneUser.Id).ToDictionary(credential => credential.Title, credential => credential.Id);
-            }
-            return list;
-        }
-
         public void DeleteUser(PassOneUser passOneUser, string path)
         {
             GetService(path).Delete(passOneUser);

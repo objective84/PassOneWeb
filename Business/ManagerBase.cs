@@ -40,6 +40,18 @@ namespace PassOne.Business
         {
             return (IEntitySvc)Factory.GetEntityService(service);
         }
+
+        public Dictionary<string, int> GetCredentialsList(PassOneUser passOneUser)
+        {
+            Dictionary<string, int> list;
+            using (var db = new PassOneContext())
+            {
+                db.Database.Connection.Open();
+                var query = from c in db.Credentials select c;
+                list = query.ToList().Where(credential => credential.UserId == passOneUser.Id).ToDictionary(credential => credential.Title, credential => credential.Id);
+            }
+            return list;
+        }
     }
 }
 

@@ -22,7 +22,7 @@ namespace PassOne
         {
             try
             {
-                _userManager.CreateUser(Path, FirstNameTextBox.Text, LastNameLabel.Text, UsernameTextBox.Text, PasswordTextBox.Text);
+                _userManager.CreateUser(Path, FirstNameTextBox.Text, LastNameTextBox.Text, UsernameTextBox.Text, PasswordTextBox.Text);
                 Session["User"] = _userManager.Authenticate(UsernameTextBox.Text, PasswordTextBox.Text, Path);
                 Server.Transfer("CredentialsList.aspx");
             }

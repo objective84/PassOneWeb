@@ -27,9 +27,9 @@
     <asp:TextBox ID="UsernameTextBox" runat="server" 
         style="z-index: 1; left: 537px; top: 180px; position: absolute"></asp:TextBox>
     <asp:TextBox ID="PasswordTextBox" runat="server" 
-        style="z-index: 1; left: 537px; top: 217px; position: absolute"></asp:TextBox>
+        style="z-index: 1; left: 537px; top: 217px; position: absolute" TextMode="Password"></asp:TextBox>
     <asp:TextBox ID="ConfirmTextBox" runat="server" 
-        style="z-index: 1; left: 536px; top: 257px; position: absolute"></asp:TextBox>
+        style="z-index: 1; left: 536px; top: 257px; position: absolute" TextMode="Password"></asp:TextBox>
     <asp:Label ID="LastNameLabel" runat="server" 
         style="z-index: 1; left: 457px; top: 146px; position: absolute" 
         Text="Last Name"></asp:Label>

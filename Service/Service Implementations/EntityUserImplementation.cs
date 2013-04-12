@@ -40,6 +40,18 @@ namespace PassOne.Service
             }
         }
 
+        public void Edit(PassOneObject obj)
+        {
+            using (var db = new PassOneContext())
+            {
+                var userQuery = from u in db.Users select u;
+                var user = userQuery.ToList().FirstOrDefault(user1 => user1.Id == obj.Id);
+                userQuery.ToList().Remove(user);
+                userQuery.ToList().Add((ConvertToEntity(obj)));
+                db.SaveChanges();
+            }
+        }
+
         public int GetNextIdValue()
         {
             var context = new PassOneContext();

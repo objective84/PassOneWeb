@@ -14,7 +14,7 @@
             style="z-index: 1; left: 435px; top: 184px; position: absolute" 
             Text="Enter new value:"></asp:Label>
         <asp:TextBox ID="NewValueTextBox" runat="server" 
-            style="z-index: 1; left: 421px; top: 209px; position: absolute" OnTextChanged="NewValueTextBox_TextChanged"></asp:TextBox>
+            style="z-index: 1; left: 421px; top: 209px; position: absolute"></asp:TextBox>
     
     </div>
     <asp:Button ID="UpdateButton" runat="server" onclick="Button1_Click" 

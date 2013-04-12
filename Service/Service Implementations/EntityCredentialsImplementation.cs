@@ -38,10 +38,23 @@ namespace PassOne.Service
             }
         }
 
+        public void Edit(PassOneObject obj)
+        {
+            using (var db = new PassOneContext())
+            {
+                
+                var credsQuery = from u in db.Credentials select u;
+                var creds = credsQuery.ToList().FirstOrDefault(user1 => user1.Id == obj.Id);
+                db.Credentials.Remove(creds);
+                db.Credentials.Add((ConvertToEntity(obj)));
+                db.SaveChanges();
+            }
+        }
+
         public int GetNextIdValue()
         {
             var context = new PassOneContext();
-            var query = from u in context.Users select u;
+            var query = from u in context.Credentials select u;
             var users = query.ToList();
 
             return users.Select(user => user.Id).Concat(new[] { 0 }).Max() + 1;

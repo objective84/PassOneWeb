@@ -145,6 +145,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Domain\Exceptions\TitleAlreadyExistsException.cs" />
     <Compile Include="Domain\PassOneCredentials.cs" />
     <Compile Include="Domain\Encryption.cs" />
     <Compile Include="Domain\Exceptions\CredentialsNotFoundException.cs" />

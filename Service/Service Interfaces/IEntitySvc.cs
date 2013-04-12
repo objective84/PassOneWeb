@@ -12,6 +12,7 @@ namespace PassOne.Service
         PassOneObject RetreiveById(int id);
         void Create(PassOneObject obj);
         void Delete(PassOneObject obj);
+        void Edit(PassOneObject obj);
         int GetNextIdValue();
     }
 }

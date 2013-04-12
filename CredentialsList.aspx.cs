@@ -11,10 +11,10 @@ namespace PassOne
 {
     public partial class CredentialsList : System.Web.UI.Page
     {
-        public static string Path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\PassOneWeb\\";
         private PassOneUser _passOneUser;
         private UserManager _userManager = new UserManager();
         private CredentialsManager _credentialsManager = new CredentialsManager();
+        private PassOneCredentials _selectedCredentials;
      
 
         protected void Page_Load(object sender, EventArgs e)
@@ -33,6 +33,9 @@ namespace PassOne
 
         protected void Edit_Click(object sender, EventArgs e)
         {
+            Session["Edit"] = ((WebControl)sender).ID;
+            var id = _userManager.GetCredentialsList(_passOneUser)[CredentialsListBox.SelectedItem.Value];
+            Session["Credentials"] = _credentialsManager.FindCredentials((PassOneUser)Session["User"],id);
             Server.Transfer("EditValue.aspx");
         }
 
@@ -44,24 +47,33 @@ namespace PassOne
         protected void DeleteButton_Click(object sender, EventArgs e)
         {
             var creds = _credentialsManager.FindCredentials(_passOneUser,
-                                                            _userManager.GetCredentialsList(_passOneUser, Path)[
-                                                                CredentialsListBox.SelectedItem.Value], Path);
-            _credentialsManager.DeleteCredentials(creds, _passOneUser, Path);
+                                                            _userManager.GetCredentialsList(_passOneUser)[
+                                                                CredentialsListBox.SelectedItem.Value]);
+            _credentialsManager.DeleteCredentials(creds, _passOneUser);
             Session["User"] = _passOneUser;
             UpdateListBox();
-            
+            ClearDetails();
         }
 
         public void UpdateListBox()
         {
             var tempList = (from ListItem item in CredentialsListBox.Items select item.Text).ToList();
 
-            var credentialsList = _userManager.GetCredentialsList(_passOneUser, Path);
+            var credentialsList = _userManager.GetCredentialsList(_passOneUser);
 
             foreach (var key in credentialsList.Keys.Where(key => !tempList.Contains(key)))
                 CredentialsListBox.Items.Add(key);
             foreach (var item in tempList.Where(item => !credentialsList.ContainsKey(item)))
                 CredentialsListBox.Items.Remove(item);
+        }
+
+        public void ClearDetails()
+        {
+            WebsiteValue.Text = string.Empty;
+            UrlValue.Text = string.Empty;
+            UsernameValue.Text = string.Empty;
+            EmailValue.Text = string.Empty;
+            PasswordValue.Text = string.Empty;
         }
 
         protected void CredentialsListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -72,13 +84,13 @@ namespace PassOne
                 ShowPasswordButton.Text = "Show Password";
             }
             _passOneUser = (PassOneUser)Session["User"];
-            var id = _userManager.GetCredentialsList(_passOneUser, Path)[CredentialsListBox.SelectedItem.Value];
-            var creds = _credentialsManager.FindCredentials(_passOneUser, id, Path);
-            WebsiteValue.Text = creds.Website;
-            UrlValue.Text = creds.Url;
-            UsernameValue.Text = creds.Username;
-            EmailValue.Text = creds.EmailAddress;
-            PasswordValue.Text = creds.Password;
+            var id = _userManager.GetCredentialsList(_passOneUser)[CredentialsListBox.SelectedItem.Value];
+            _selectedCredentials = _credentialsManager.FindCredentials(_passOneUser, id);
+            WebsiteValue.Text = _selectedCredentials.Website;
+            UrlValue.Text = _selectedCredentials.Url;
+            UsernameValue.Text = _selectedCredentials.Username;
+            EmailValue.Text = _selectedCredentials.EmailAddress;
+            PasswordValue.Text = _selectedCredentials.Password;
         }
 
         protected void ShowPassword_Click(object sender, EventArgs e)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using PassOne.Domain.Exceptions;
 using PassOne.Service;
 using PassOne.Domain;
 
@@ -23,8 +24,11 @@ namespace PassOne.Business
         /// <param name="creds">Credentials to be created</param>
         /// <param name="path">The location of the data.bin file</param>
         /// <returns>the Id of the credentials just created</returns>
-        public int CreateCredentials(PassOneUser passOneUser, PassOneCredentials creds, string path)
+        public int CreateCredentials(PassOneUser passOneUser, PassOneCredentials creds)
         {
+            if (GetCredentialsList(passOneUser).ContainsKey(creds.Website))
+                throw new TitleAlreadyExistsException();
+
             var credsSvc = GetService(Services.EntityCredentialsImplementation);
             creds.Id = credsSvc.GetNextIdValue();
             creds.UserId = passOneUser.Id;
@@ -38,16 +42,19 @@ namespace PassOne.Business
         /// <param name="passOneUser">The user whose list contains the credentials in question</param>
         /// <param name="creds">The credentials to be updated</param>
         /// <param name="path">The directory path to where the app can find the PassOne data files</param>
-        public void UpdateCredentials(PassOneUser passOneUser, PassOneCredentials creds, string path)
+        public void UpdateCredentials(PassOneUser passOneUser, PassOneCredentials creds)
         {
-            //try
-            //{
-            //    GetService(path, passOneUser).UpdateTable(creds);
-            //}
-            //catch (CryptographicException)
-            //{
-            //    throw new EncryptionException();
-            //}
+            var list = GetCredentialsList(passOneUser);
+            if (list.ContainsKey(creds.Website) && FindCredentials(passOneUser, (list[creds.Website])).Id != creds.Id) 
+                throw new TitleAlreadyExistsException();
+            try
+            {
+                GetService(Services.EntityCredentialsImplementation).Edit(creds);
+            }
+            catch (CryptographicException)
+            {
+                throw new EncryptionException();
+            }
         }
 
         /// <summary>
@@ -57,7 +64,7 @@ namespace PassOne.Business
         /// <param name="id">The Id of the credentials to be retrieved</param>
         /// <param name="path">The directory path to where the app can find the PassOne data files</param>
         /// <returns>The requested credentials, if found; if not, returns null</returns>
-        public PassOneCredentials FindCredentials(PassOneUser passOneUser, int id, string path)
+        public PassOneCredentials FindCredentials(PassOneUser passOneUser, int id)
         {
             try
             {
@@ -77,12 +84,12 @@ namespace PassOne.Business
         /// <param name="creds">The credentials to be deleted</param>
         /// <param name="passOneUser">The user whose list contains the credentials in question</param>
         /// <param name="path">The directory path to where the app can find the PassOne data files</param>
-        public void DeleteCredentials(PassOneCredentials creds, PassOneUser passOneUser, string path)
+        public void DeleteCredentials(PassOneCredentials creds, PassOneUser passOneUser)
         {
             try
             {
                 //creds.Encrypt(user.Encryption);
-                GetService(path, passOneUser).Delete(creds);
+                GetService(Services.EntityCredentialsImplementation).Delete(creds);
             }
             catch (CryptographicException)
             {

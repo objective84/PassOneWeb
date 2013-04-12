@@ -18,7 +18,12 @@ namespace PassOne
         {
         }
 
-        protected void Button2_Click(object sender, EventArgs e)
+        protected void RegisterButton_Click(object sender, EventArgs e)
+        {
+            Server.Transfer("Register.aspx");
+        }
+
+        protected void LoginButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -29,11 +34,6 @@ namespace PassOne
             {
                 throw new InvalidLoginException();
             }
-        }
-
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            Server.Transfer("Register.aspx");
         }
     }
 }

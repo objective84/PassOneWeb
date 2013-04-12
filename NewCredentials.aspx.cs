@@ -25,7 +25,7 @@ namespace PassOne
             _credentialsManager.CreateCredentials(user,
                                                   new PassOneCredentials(WebsiteTextbox.Text, UrlTextbox.Text,
                                                                   UsernameTextbox.Text, PasswordTextbox.Text,
-                                                                  EmailTextbox.Text), Path);
+                                                                  EmailTextbox.Text));
             Session["User"] = user;
             Server.Transfer("CredentialsList.aspx");
         }
