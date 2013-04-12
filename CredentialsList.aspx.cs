@@ -23,7 +23,7 @@ namespace PassOne
             if (IsPostBack) return;
 
             CredentialsListBox.SelectedIndexChanged += CredentialsListBox_SelectedIndexChanged;
-            //UpdateListBox();
+            UpdateListBox();
 
             if (CredentialsListBox.Items.Count <= 0) return;
 
@@ -69,36 +69,35 @@ namespace PassOne
 
         public void ClearDetails()
         {
-            //WebsiteValue.Text = string.Empty;
-            //UrlValue.Text = string.Empty;
-            //UsernameValue.Text = string.Empty;
-            //EmailValue.Text = string.Empty;
-            //PasswordValue.Text = string.Empty;
+            WebsiteValue.Text = string.Empty;
+            UrlValue.Text = string.Empty;
+            UsernameValue.Text = string.Empty;
+            EmailValue.Text = string.Empty;
+            PasswordValue.Text = string.Empty;
         }
 
         protected void CredentialsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             
-            //if (PasswordValue.Visible)
-            //{
-            //    PasswordValue.Visible = false;
-            //    ShowPasswordButton.Text = "Show Password";
-            //}
-            //_passOneUser = (PassOneUser)Session["User"];
-            //var id = _userManager.GetCredentialsList(_passOneUser)[CredentialsListBox.SelectedItem.Value];
-            //_selectedCredentials = _credentialsManager.FindCredentials(_passOneUser, id);
-            //WebsiteValue.Text = _selectedCredentials.Website;
-            //UrlValue.Text = _selectedCredentials.Url;
-            //UsernameValue.Text = _selectedCredentials.Username;
-            //EmailValue.Text = _selectedCredentials.EmailAddress;
-            //PasswordValue.Text = _selectedCredentials.Password;
-            //DetailsView1.DataItem = 
+            if (PasswordValue.Visible)
+            {
+                PasswordValue.Visible = false;
+                ShowPasswordButton.Text = "Show Password";
+            }
+            _passOneUser = (PassOneUser)Session["User"];
+            var id = _userManager.GetCredentialsList(_passOneUser)[CredentialsListBox.SelectedItem.Value];
+            _selectedCredentials = _credentialsManager.FindCredentials(_passOneUser, id);
+            WebsiteValue.Text = _selectedCredentials.Website;
+            UrlValue.Text = _selectedCredentials.Url;
+            UsernameValue.Text = _selectedCredentials.Username;
+            EmailValue.Text = _selectedCredentials.EmailAddress;
+            PasswordValue.Text = _selectedCredentials.Password;
         }
 
         protected void ShowPassword_Click(object sender, EventArgs e)
         {
-            //PasswordValue.Visible = !PasswordValue.Visible;
-            //ShowPasswordButton.Text = PasswordValue.Visible ? "Hide Password" : "Show Password";
+            PasswordValue.Visible = !PasswordValue.Visible;
+            ShowPasswordButton.Text = PasswordValue.Visible ? "Hide Password" : "Show Password";
         }
     }
 }

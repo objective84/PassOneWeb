@@ -21,7 +21,7 @@ namespace PassOne
             //NewValueTextBox.Text = GetEditValue();
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void UpdateButton_Click(object sender, EventArgs e)
         {
             SetEditValue(NewValueTextBox.Text);
             _credentialsManager.UpdateCredentials((PassOneUser)Session["User"], creds);
