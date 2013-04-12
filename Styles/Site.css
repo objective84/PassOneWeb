@@ -116,9 +116,17 @@ first child of the left and right table columns */
 
 .main
 {
-    padding: 0px 12px;
+    padding: 0px 6px;
     margin: 12px 8px 8px 8px;
     min-height: 420px;
+}
+
+.main2 
+{
+    width: 300px;
+   padding: 0px 12px;
+    margin: 12px 8px 8px 8px;
+    min-height: 420px; 
 }
 
 .leftCol

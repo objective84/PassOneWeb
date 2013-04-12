@@ -32,15 +32,15 @@ namespace PassOne
         {
             switch ((string)Session["Edit"])
             {
-                case "WebsiteEdit":
+                case "WebsiteValue":
                     return creds.Website;
-                case "UrlEdit":
+                case "UrlValue":
                     return creds.Url;
-                case "PasswordEdit":
+                case "PasswordValue":
                     return creds.Password;
                 case "EmailEdit":
                     return creds.EmailAddress;
-                case "UsernameEdit":
+                case "UsernameValue":
                     return creds.Username;
                 default:
                     return string.Empty;
@@ -51,19 +51,19 @@ namespace PassOne
         {
             switch ((string)Session["Edit"])
             {
-                case "WebsiteEdit":
+                case "WebsiteValue":
                     creds.Website = newValue;
                     break;
-                case "UrlEdit":
+                case "UrlValue":
                     creds.Url = newValue;
                     break;
-                case "PasswordEdit":
-                    creds.Url = newValue;
+                case "PasswordValue":
+                    creds.Password = newValue;
                     break;
-                case "EmailEdit":
+                case "EmailValue":
                     creds.EmailAddress = newValue;
                     break;
-                case "UsernameEdit":
+                case "UsernameValue":
                     creds.Username = newValue;
                     break;
             }
