@@ -7,7 +7,11 @@
 
     <asp:ListBox ID="CredentialsListBox" runat="server" Height="342px" Width="111px" OnSelectedIndexChanged="CredentialsListBox_SelectedIndexChanged"></asp:ListBox>
 
-
+    <br/>
+    <asp:Button ID="Button1" runat="server" Text="Button" />
+    <asp:Button ID="Button2" runat="server" Text="Button" />
+    </asp:Content>
+<asp:Content ID="Content1" runat="server" ContentPlaceHolderID="MainContent1">
     <asp:Label ID="WebsiteLabel" runat="server" Text="Website: " style="vertical-align:top"></asp:Label >
     <asp:LinkButton ID="WebsiteValue" runat="server" style="vertical-align:top" onclick="Edit_Click"></asp:LinkButton>
 
@@ -31,11 +35,4 @@
     
     <br/>
     <asp:LinkButton ID="ShowPasswordButton" runat="server" style="vertical-align:top" onclick="Edit_Click"></asp:LinkButton>
-    
-    <br/>
-    <asp:Button ID="Button1" runat="server" Text="Button" />
-    <asp:Button ID="Button2" runat="server" Text="Button" />
-    </asp:Content>
-<asp:Content ID="Content1" runat="server" ContentPlaceHolderID="MainContent1">
-    
     </asp:Content>

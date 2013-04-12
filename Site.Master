@@ -42,8 +42,8 @@
 
         </div>
         
-            <asp:ContentPlaceHolder ID="MainContent1" runat="server"/>
         <div class="main2">
+            <asp:ContentPlaceHolder ID="MainContent1" runat="server"/>
         </div>
                                
                            
