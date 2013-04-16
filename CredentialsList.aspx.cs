@@ -78,7 +78,6 @@ namespace PassOne
 
         protected void CredentialsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
             if (PasswordValue.Visible)
             {
                 PasswordValue.Visible = false;
