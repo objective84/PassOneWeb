@@ -20,7 +20,7 @@ namespace PassOne
 
         protected void RegisterButton_Click(object sender, EventArgs e)
         {
-            Server.Transfer("Register.aspx");
+            Response.Redirect("Register.aspx");
         }
 
         protected void LoginButton_Click(object sender, EventArgs e)
@@ -28,7 +28,7 @@ namespace PassOne
             try
             {
                 Session["User"] = _userManager.Authenticate(UsernameTextBox.Text, PasswordTextBox.Text, Path);
-                Server.Transfer("CredentialsList.aspx");
+                Response.Redirect("CredentialsList.aspx");
             }
             catch (InvalidLoginException)
             {

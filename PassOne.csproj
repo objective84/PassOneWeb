@@ -79,6 +79,7 @@
     <Content Include="EditValue.aspx">
       <BrowseToURL>~/Presentation/EditValue.aspx</BrowseToURL>
     </Content>
+    <Content Include="HomePage.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="NewCredentials.aspx" />
     <Content Include="Register.aspx" />
@@ -168,6 +169,13 @@
     </Compile>
     <Compile Include="EditValue.aspx.designer.cs">
       <DependentUpon>EditValue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HomePage.aspx.cs">
+      <DependentUpon>HomePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HomePage.aspx.designer.cs">
+      <DependentUpon>HomePage.aspx</DependentUpon>
     </Compile>
     <Compile Include="NewCredentials.aspx.cs">
       <DependentUpon>NewCredentials.aspx</DependentUpon>
