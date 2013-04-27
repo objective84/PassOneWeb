@@ -24,7 +24,7 @@ namespace PassOne
             {
                 _userManager.CreateUser(Path, FirstNameTextBox.Text, LastNameTextBox.Text, UsernameTextBox.Text, PasswordTextBox.Text);
                 Session["User"] = _userManager.Authenticate(UsernameTextBox.Text, PasswordTextBox.Text, Path);
-                Server.Transfer("CredentialsList.aspx");
+                Response.Redirect("CredentialsList.aspx");
             }
             catch (MissingInformationException)
             {

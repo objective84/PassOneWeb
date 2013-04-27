@@ -25,7 +25,7 @@ namespace PassOne
         {
             SetEditValue(NewValueTextBox.Text);
             _credentialsManager.UpdateCredentials((PassOneUser)Session["User"], creds);
-            Server.Transfer("CredentialsList.aspx");
+            Response.Redirect("CredentialsList.aspx");
         }
 
         private string GetEditValue()

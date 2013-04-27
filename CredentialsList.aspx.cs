@@ -36,12 +36,12 @@ namespace PassOne
             Session["Edit"] = ((WebControl)sender).ID;
             var id = _userManager.GetCredentialsList(_passOneUser)[CredentialsListBox.SelectedItem.Value];
             Session["Credentials"] = _credentialsManager.FindCredentials((PassOneUser)Session["User"],id);
-            Server.Transfer("EditValue.aspx");
+            Response.Redirect("EditValue.aspx");
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            Server.Transfer("NewCredentials.aspx");
+            Response.Redirect("NewCredentials.aspx");
         }
 
         protected void DeleteButton_Click(object sender, EventArgs e)
